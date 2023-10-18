@@ -1,3 +1,0 @@
-Sandia:5
-Manzana :2
-Pera:1

@@ -1,23 +1,31 @@
 package com.uady.mvcvotaciones.model;
 
+import java.time.LocalDateTime;
+
 public class Voto {
-    private Producto producto;
-    private int votos;
 
-    public Voto(Producto producto){
-        this.producto= producto;
-        this.votos= 0; 
+    private int votos=0;
+    private LocalDateTime dateTime;
+
+    public Voto(){
+        this.dateTime= LocalDateTime.now();
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
 
     public int getVotos() {
         return votos;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setVotos(int votos) {
+        this.votos = votos;
     }
     
     public void votar(){
