@@ -72,6 +72,21 @@ public class VistaVotaciones {
             mainPanel.add(panel);
         }
 
+        JPanel g_panel = new JPanel();
+        g_panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JButton graphsButton = new JButton("Ver gráficas");
+        graphsButton.setName("graphsButton");
+        graphsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VistaGraficaCircular().setVisible(true);
+                new VistaGraficaBarras().setVisible(true);
+            }
+        });
+
+        g_panel.add(graphsButton);
+        mainPanel.add(g_panel);
+
         frame.add(mainPanel);
         frame.setVisible(true);
     }
