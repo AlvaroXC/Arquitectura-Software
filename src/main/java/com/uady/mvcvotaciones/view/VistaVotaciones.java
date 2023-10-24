@@ -25,11 +25,14 @@ import javax.swing.JPanel;
 
 public class VistaVotaciones {
 
-    private static String PATH_VOTO= "src/main/resources/votaciones_";
+    public static String PATH_VOTO= "src/main/resources/votaciones_";
+    public static Boolean bandera = false;
     public static void main(String[] args) {
         // Carga la lista de productos desde el archivo productos.txt
         ProductoController productoController = new ProductoController();
         ArrayList<Producto> productos = productoController.cargarProductosDesdeArchivo();
+        VistaGraficaBarras barras = new VistaGraficaBarras(productos);
+        VistaGraficaCircular circular = new VistaGraficaCircular(productos);
 
         // Carga las votaciones existentes desde el archivo votaciones.txt
         // ArrayList<Voto> votaciones = cargarVotacionesDesdeArchivo(productos, PATH_VOTACIONES);
@@ -58,11 +61,13 @@ public class VistaVotaciones {
 
                     System.out.println(voteButton.getName());
                     Voto voto = new Voto();
-                    voto.votar();
                     VotoController votoController = new VotoController(voto, PATH_VOTO+voteButton.getName()+".txt");
                     votoController.escribirVotaciones();
+                    if(bandera == true){
+                        barras.repaint();
+                        circular.repaint();
+                    }
                     
-
                     JOptionPane.showMessageDialog(frame, "Has votado por " + producto.getName());
                 }
             });
@@ -79,8 +84,9 @@ public class VistaVotaciones {
         graphsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new VistaGraficaCircular().setVisible(true);
-                new VistaGraficaBarras().setVisible(true);
+                barras.setVisible(true);
+                circular.setVisible(true);
+                bandera = true;
             }
         });
 
