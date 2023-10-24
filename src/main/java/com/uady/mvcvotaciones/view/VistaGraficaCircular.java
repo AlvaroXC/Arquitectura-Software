@@ -2,7 +2,11 @@ package com.uady.mvcvotaciones.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
+
 import com.uady.mvcvotaciones.controller.VotoController;
 import com.uady.mvcvotaciones.model.Producto;
 
@@ -13,6 +17,7 @@ public class VistaGraficaCircular extends javax.swing.JFrame {
 
     private javax.swing.JLabel Titulo;
     public ArrayList<Producto> productos;
+    private boolean bandera = false;
 
     /**
      * Creates new form VistaGraficas
@@ -60,33 +65,86 @@ public class VistaGraficaCircular extends javax.swing.JFrame {
     public void paint(Graphics g){
         super.paint(g);
 
-        VotoController votoController1 = new VotoController(VistaVotaciones.PATH_VOTO+productos.get(0).getName()+".txt");
-        VotoController votoController2 = new VotoController(VistaVotaciones.PATH_VOTO+productos.get(1).getName()+".txt");
-        VotoController votoController3 = new VotoController(VistaVotaciones.PATH_VOTO+productos.get(2).getName()+".txt");
+        int totalVotos=0;
+        ArrayList<Integer> votosIndivuales = new ArrayList<>();
+        for(Producto producto: productos){
+            VotoController votoController = new VotoController(VistaVotaciones.PATH_VOTO+producto.getName()+".txt");
+            int votoFrutaIndividual = votoController.obtenerTotalVotaciones();
+            votosIndivuales.add(votoFrutaIndividual);
+            totalVotos+=votoFrutaIndividual;
+            
+        }
 
-        int rojo = votoController1.obtenerTotalVotaciones();
-        int verde = votoController2.obtenerTotalVotaciones();
-        int azul = votoController3.obtenerTotalVotaciones();
+        int []grados= new int [votosIndivuales.size()];
+        for (int i = 0; i <votosIndivuales.size(); i++) {
+            grados[i] = votosIndivuales.get(i)*360/totalVotos;
+        }
         
-        int total_votos = rojo + verde + azul;
+        int inicioAngulo=0;
+        int y=135;
+        int cuadro= 120;
+        ArrayList<Color> coloresProductos = new ArrayList<>();
+        // coloresProductos.add(color);
+        for (int i = 0; i < productos.size(); i++) {
+        if(bandera==false){
+            Color color = generarColor();
+            coloresProductos.add(color);
+        }
+        }
+        if(bandera == false) bandera=true;
         
-        int grados_r = rojo*360/total_votos;
-        int grados_v = verde*360/total_votos;
-        int grados_a = azul*360/total_votos;
+        for (int i = 0; i < grados.length; i++) {
+            g.setColor(coloresProductos.get(i));
+            g.fillArc(40, 80, 200, 200, inicioAngulo, grados[i]);
+            g.fillRect(250, cuadro, 20, 20);
+            g.drawString(productos.get(i).getName(), 275, y);
+            inicioAngulo+=grados[i];
+            y+=30;
+            cuadro+=30;
+
+        }
         
-        g.setColor(new Color(255,0,0));
-        g.fillArc(40, 80, 200, 200, 0, grados_r);
-        g.fillRect(250, 120, 20, 20);
-        g.drawString(productos.get(0).getName(), 275, 135);
+
+
         
-        g.setColor(new Color(0,130,0));
-        g.fillArc(40, 80, 200, 200, grados_r, grados_v);
-        g.fillRect(250, 150, 20, 20);
-        g.drawString(productos.get(1).getName(), 275, 165);
+
+        // VotoController votoController1 = new VotoController(VistaVotaciones.PATH_VOTO+productos.get(0).getName()+".txt");
+        // VotoController votoController2 = new VotoController(VistaVotaciones.PATH_VOTO+productos.get(1).getName()+".txt");
+        // VotoController votoController3 = new VotoController(VistaVotaciones.PATH_VOTO+productos.get(2).getName()+".txt");
+
+        // int rojo = votoController1.obtenerTotalVotaciones();
+        // int verde = votoController2.obtenerTotalVotaciones();
+        // int azul = votoController3.obtenerTotalVotaciones();
         
-        g.setColor(new Color(0,0,255));
-        g.fillArc(40, 80, 200, 200, grados_r + grados_v, grados_a);
-        g.fillRect(250, 180, 20, 20);
-        g.drawString(productos.get(2).getName(), 275, 195);
+        // int total_votos = rojo + verde + azul;
+        
+        // int grados_r = rojo*360/total_votos;
+        // int grados_v = verde*360/total_votos;
+        // int grados_a = azul*360/total_votos;
+        
+        // g.setColor(new Color(255,0,0));
+        // g.fillArc(40, 80, 200, 200, 0, grados_r);
+        // g.fillRect(250, 120, 20, 20);
+        // g.drawString(productos.get(0).getName(), 275, 135);
+        
+        // g.setColor(new Color(0,130,0));
+        // g.fillArc(40, 80, 200, 200, grados_r, grados_v);
+        // g.fillRect(250, 150, 20, 20);
+        // g.drawString(productos.get(1).getName(), 275, 165);
+        
+        // g.setColor(new Color(0,0,255));
+        // g.fillArc(40, 80, 200, 200, grados_r + grados_v, grados_a);
+        // g.fillRect(250, 180, 20, 20);
+        // g.drawString(productos.get(2).getName(), 275, 195);
     }
+
+    public Color generarColor(){
+        Random rand = new Random();
+        int red = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente rojo
+        int green = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente verde
+        int blue = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente azul
+
+        return new Color(red, green, blue);
+    }
+
 }

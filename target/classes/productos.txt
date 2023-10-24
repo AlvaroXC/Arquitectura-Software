@@ -1,3 +1,5 @@
 Sandia
 Manzana 
 Pera
+Platano
+Mango
