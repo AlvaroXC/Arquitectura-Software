@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
 import com.uady.mvcvotaciones.model.Voto;
 
 public class VotoController {
@@ -24,7 +23,6 @@ public class VotoController {
     }
 
     public int obtenerTotalVotaciones() {
-        
         int totalVotos=0; 
 
         try {
@@ -33,7 +31,6 @@ public class VotoController {
             while (myReader.hasNextLine()) {
                 myReader.nextLine();
                 totalVotos++;
-                
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -42,19 +39,20 @@ public class VotoController {
         return totalVotos;
     }
 
-
     public void escribirVotaciones() {
         try {
+            File file = new File(path);
             FileWriter myWriter = new FileWriter(path, true);
-            
-            myWriter.write(voto.getDateTime().format(DateTimeFormatter.ISO_DATE_TIME) + "\n");
-            
+
+            if(file.isFile() && file.length()>0){
+                myWriter.write("\n");
+            }
+            myWriter.write(voto.getDateTime().format(DateTimeFormatter.ISO_DATE_TIME));
+
             myWriter.close();
         } catch (IOException e) {
             System.out.println("Error al escribir las votaciones.");
             e.printStackTrace();
         }
-    }
-
-    
+    }   
 }
