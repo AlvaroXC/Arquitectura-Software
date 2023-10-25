@@ -18,6 +18,7 @@ public class VistaGraficaCircular extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo;
     public ArrayList<Producto> productos;
     private boolean bandera = false;
+    public ArrayList<Color> coloresProductos = new ArrayList<>();
 
     /**
      * Creates new form VistaGraficas
@@ -67,6 +68,8 @@ public class VistaGraficaCircular extends javax.swing.JFrame {
 
         int totalVotos=0;
         ArrayList<Integer> votosIndivuales = new ArrayList<>();
+
+        
         for(Producto producto: productos){
             VotoController votoController = new VotoController(VistaVotaciones.PATH_VOTO+producto.getName()+".txt");
             int votoFrutaIndividual = votoController.obtenerTotalVotaciones();
@@ -83,15 +86,16 @@ public class VistaGraficaCircular extends javax.swing.JFrame {
         int inicioAngulo=0;
         int y=135;
         int cuadro= 120;
-        ArrayList<Color> coloresProductos = new ArrayList<>();
+        //ArrayList<Color> coloresProductos = new ArrayList<>();
         // coloresProductos.add(color);
-        for (int i = 0; i < productos.size(); i++) {
         if(bandera==false){
+        for (int i = 0; i < productos.size(); i++) {
             Color color = generarColor();
             coloresProductos.add(color);
         }
+        bandera=true;
         }
-        if(bandera == false) bandera=true;
+        
         
         for (int i = 0; i < grados.length; i++) {
             g.setColor(coloresProductos.get(i));
