@@ -4,10 +4,14 @@ import com.uady.mvcvotaciones.controller.ProductoController;
 import com.uady.mvcvotaciones.controller.VotoController;
 import com.uady.mvcvotaciones.model.Producto;
 import com.uady.mvcvotaciones.model.Voto;
+
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,8 +27,17 @@ public class VistaVotaciones {
         // Carga la lista de productos desde el archivo productos.txt
         ProductoController productoController = new ProductoController();
         ArrayList<Producto> productos = productoController.cargarProductosDesdeArchivo();
-        VistaGraficaBarras barras = new VistaGraficaBarras(productos);
-        VistaGraficaCircular circular = new VistaGraficaCircular(productos);
+        
+        ArrayList<Color> coloresProductos = new ArrayList<>();
+        for (int i=0; i<productos.size(); i++) {
+            Random rand = new Random();
+            int red = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente rojo
+            int green = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente verde
+            int blue = rand.nextInt(256);
+            coloresProductos.add(new Color(red, green, blue));
+        }
+        VistaGraficaBarras barras = new VistaGraficaBarras(productos, coloresProductos);
+        VistaGraficaCircular circular = new VistaGraficaCircular(productos, coloresProductos);
 
         // for(Producto producto: productos){
         //     VotoController votoController = new VotoController(PATH_VOTO+producto.getName()+"txt");
@@ -91,5 +104,14 @@ public class VistaVotaciones {
 
         frame.add(mainPanel);
         frame.setVisible(true);
+    }
+
+    public Color generarColor(){
+        Random rand = new Random();
+        int red = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente rojo
+        int green = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente verde
+        int blue = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente azul
+
+        return new Color(red, green, blue);
     }
 }
