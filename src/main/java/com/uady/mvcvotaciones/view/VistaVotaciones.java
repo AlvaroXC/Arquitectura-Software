@@ -11,19 +11,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class VistaVotaciones {
 
-    public static String PATH_VOTO= "src/main/resources/votaciones_";
-    public static Boolean bandera = false;
-    public static void main(String[] args) {
+    public String PATH_VOTO= "src/main/resources/votaciones_";
+    public Boolean bandera = false;
+
+    public VistaVotaciones(){}
+
+    public void initComponents(){
         // Carga la lista de productos desde el archivo productos.txt
         ProductoController productoController = new ProductoController();
         ArrayList<Producto> productos = productoController.cargarProductosDesdeArchivo();
@@ -39,12 +40,6 @@ public class VistaVotaciones {
         VistaGraficaBarras barras = new VistaGraficaBarras(productos, coloresProductos);
         VistaGraficaCircular circular = new VistaGraficaCircular(productos, coloresProductos);
 
-        // for(Producto producto: productos){
-        //     VotoController votoController = new VotoController(PATH_VOTO+producto.getName()+"txt");
-        //     votoController.obtenerTotalVotaciones();
-        // }
-
-
         JFrame frame = new JFrame("Votación de Productos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -58,17 +53,12 @@ public class VistaVotaciones {
             panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
             JLabel label = new JLabel(producto.getName());
-            // JButton voteButton = new JButton("Votar por "+ producto.getName());
             JButton voteButton = new JButton("Votar por "+ producto.getName());
             voteButton.setName(producto.getName().toLowerCase());
-
-            // Voto votacion = obtenerVotacion(producto, votaciones);
 
             voteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-                    System.out.println(voteButton.getName());
                     Voto voto = new Voto();
                     VotoController votoController = new VotoController(voto, PATH_VOTO+voteButton.getName()+".txt");
                     votoController.escribirVotaciones();
@@ -76,8 +66,6 @@ public class VistaVotaciones {
                         barras.repaint();
                         circular.repaint();
                     }
-                    
-                    JOptionPane.showMessageDialog(frame, "Has votado por " + producto.getName());
                 }
             });
 
@@ -104,14 +92,5 @@ public class VistaVotaciones {
 
         frame.add(mainPanel);
         frame.setVisible(true);
-    }
-
-    public Color generarColor(){
-        Random rand = new Random();
-        int red = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente rojo
-        int green = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente verde
-        int blue = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente azul
-
-        return new Color(red, green, blue);
     }
 }

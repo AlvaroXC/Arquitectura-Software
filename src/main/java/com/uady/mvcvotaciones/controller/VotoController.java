@@ -9,7 +9,6 @@ import java.util.Scanner;
 import com.uady.mvcvotaciones.model.Voto;
 
 public class VotoController {
-
     private Voto voto;
     private String path;
 
