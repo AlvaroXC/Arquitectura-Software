@@ -3,7 +3,6 @@ package com.uady.mvcvotaciones.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Random;
 import com.uady.mvcvotaciones.controller.VotoController;
 import com.uady.mvcvotaciones.model.Producto;
 
@@ -13,8 +12,8 @@ import com.uady.mvcvotaciones.model.Producto;
 public class VistaGraficaCircular extends javax.swing.JFrame {
 
     private javax.swing.JLabel Titulo;
-    public ArrayList<Producto> productos;
-    public ArrayList<Color> coloresProductos = new ArrayList<>();
+    private ArrayList<Producto> productos;
+    private ArrayList<Color> coloresProductos;
 
     /**
      * Creates new form VistaGraficas

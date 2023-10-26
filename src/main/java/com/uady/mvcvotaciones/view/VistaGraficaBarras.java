@@ -3,7 +3,6 @@ package com.uady.mvcvotaciones.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Random;
 import com.uady.mvcvotaciones.controller.VotoController;
 import com.uady.mvcvotaciones.model.Producto;
 
@@ -12,8 +11,8 @@ import com.uady.mvcvotaciones.model.Producto;
  */
 public class VistaGraficaBarras extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo;
-    public ArrayList<Producto> productos;
-    public ArrayList<Color> coloresProductos;
+    private ArrayList<Producto> productos;
+    private ArrayList<Color> coloresProductos;
 
     /**
      * Creates new form VistaGraficas
@@ -59,7 +58,7 @@ public class VistaGraficaBarras extends javax.swing.JFrame {
         pack();
     }
 
-    public int determinarMayorVotacion(ArrayList<Integer> votosIndividuales){
+    private int determinarMayorVotacion(ArrayList<Integer> votosIndividuales){
         int maximo=0;
         for (int votaciones: votosIndividuales) {
             if(votaciones>maximo){
