@@ -68,12 +68,9 @@ public class VistaGraficaBarras extends javax.swing.JFrame {
             votosIndivuales.add(votoFrutaIndividual);
         }   
         
-        int valMayor = determinarMayorVotacion(votosIndivuales);
-        
-        int []alturasBarras= new int [votosIndivuales.size()];
-        for (int i = 0; i <votosIndivuales.size(); i++) {
-            alturasBarras[i] = votosIndivuales.get(i)*250/valMayor;
-        }
+        int valMayor = determinarMayorVotacion(votosIndivuales);        
+        int []alturasBarras= calcularAlturas(votosIndivuales, valMayor);
+
 
         int y=100;
         int y2 = 125;
@@ -85,5 +82,14 @@ public class VistaGraficaBarras extends javax.swing.JFrame {
             y+=50;
             y2+=50;
         }
+    }
+
+    public int[] calcularAlturas(ArrayList<Integer> votosIndivuales, int valMayor){
+        int alturasBarras[]= new int[votosIndivuales.size()];
+        for (int i = 0; i <votosIndivuales.size(); i++) {
+            alturasBarras[i] = votosIndivuales.get(i)*250/valMayor;
+        }
+
+        return alturasBarras;
     }
 }
