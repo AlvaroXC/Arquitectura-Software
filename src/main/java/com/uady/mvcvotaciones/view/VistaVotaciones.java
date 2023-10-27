@@ -28,15 +28,8 @@ public class VistaVotaciones {
         // Carga la lista de productos desde el archivo productos.txt
         ProductoController productoController = new ProductoController();
         ArrayList<Producto> productos = productoController.cargarProductosDesdeArchivo();
-        
-        ArrayList<Color> coloresProductos = new ArrayList<>();
-        for (int i=0; i<productos.size(); i++) {
-            Random rand = new Random();
-            int red = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente rojo
-            int green = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente verde
-            int blue = rand.nextInt(256);
-            coloresProductos.add(new Color(red, green, blue));
-        }
+        ArrayList<Color> coloresProductos = generarColores(productos);
+
         VistaGraficaBarras barras = new VistaGraficaBarras(productos, coloresProductos);
         VistaGraficaCircular circular = new VistaGraficaCircular(productos, coloresProductos);
 
@@ -92,5 +85,18 @@ public class VistaVotaciones {
 
         frame.add(mainPanel);
         frame.setVisible(true);
+    }
+
+    public ArrayList<Color> generarColores(ArrayList<Producto> productos){
+        ArrayList<Color> coloresProductos = new ArrayList<>();
+
+        for (int i=0; i<productos.size(); i++) {
+            Random rand = new Random();
+            int red = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente rojo
+            int green = rand.nextInt(256); // Valor aleatorio entre 0 y 255 para el componente verde
+            int blue = rand.nextInt(256);
+            coloresProductos.add(new Color(red, green, blue));
+        }
+        return coloresProductos;
     }
 }

@@ -62,10 +62,7 @@ public class VistaGraficaCircular extends javax.swing.JFrame {
             totalVotos+=votoFrutaIndividual;
         }
 
-        int []grados= new int [votosIndivuales.size()];
-        for (int i = 0; i <votosIndivuales.size(); i++) {
-            grados[i] = votosIndivuales.get(i)*360/totalVotos;
-        }
+        int []grados= calcularGrados(votosIndivuales, totalVotos);
         
         int inicioAngulo=0;
         int y=135;
@@ -80,5 +77,14 @@ public class VistaGraficaCircular extends javax.swing.JFrame {
             y+=30;
             cuadro+=30;
         }        
+    }
+
+    public int[] calcularGrados(ArrayList<Integer> votosIndivuales, int totalVotos){
+        int grados[]= new int[votosIndivuales.size()];
+        for (int i = 0; i <votosIndivuales.size(); i++) {
+            grados[i] = votosIndivuales.get(i)*360/totalVotos;
+        }
+
+        return grados;
     }
 }
