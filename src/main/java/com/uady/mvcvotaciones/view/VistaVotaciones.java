@@ -87,7 +87,7 @@ public class VistaVotaciones {
         frame.setVisible(true);
     }
 
-    public ArrayList<Color> generarColores(ArrayList<Producto> productos){
+    private ArrayList<Color> generarColores(ArrayList<Producto> productos){
         ArrayList<Color> coloresProductos = new ArrayList<>();
 
         for (int i=0; i<productos.size(); i++) {

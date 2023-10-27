@@ -84,7 +84,7 @@ public class VistaGraficaBarras extends javax.swing.JFrame {
         }
     }
 
-    public int[] calcularAlturas(ArrayList<Integer> votosIndivuales, int valMayor){
+    private int[] calcularAlturas(ArrayList<Integer> votosIndivuales, int valMayor){
         int alturasBarras[]= new int[votosIndivuales.size()];
         for (int i = 0; i <votosIndivuales.size(); i++) {
             alturasBarras[i] = votosIndivuales.get(i)*250/valMayor;
